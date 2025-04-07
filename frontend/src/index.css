@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
+
+html,
+body{
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle, #3b0086, #22004e, #110029); 
+  color: white;
+  font-family: 'Varela Round', sans-serif;
+
+}
+
+.nav-link{
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 8px 20px;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.MuiOutlinedInput-input-root.Mui-focused, .MuiOutlinedInput-notchedOutline{
+  border-color: white !important;
+}
