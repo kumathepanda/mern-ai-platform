@@ -1,35 +1,18 @@
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
 
 const Logo = () => {
     return (
-        <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            marginRight: 'auto', 
-            gap: '10px'  
-        }}>
-            <Link to={'/'}>
+        <div className="flex items-center gap-2 mr-auto">
+            <Link to="/">
                 <img 
                     src="KalpaGen.png" 
                     alt="KalpaGen" 
-                    style={{ 
-                        width: '60px', 
-                        height: '60px', 
-                        objectFit: 'cover',  // Ensures the image fills the space correctly
-                        borderRadius: '50%', // Makes the image round
-                        border: '2px solid white' // Optional: Adds a border for better visibility
-                    }} 
+                    className="w-[60px] h-[60px] object-cover rounded-full border-2 border-white"
                 />
             </Link>
-            <Typography sx={{ 
-                display: { md: "block", sm: 'none', xs: 'none' }, 
-                fontWeight: 'bold', 
-                textShadow: '1px 1px 10px rgba(0,0,0,0.2)', 
-                color: '#F1F5F9'  
-            }}>
-                <span style={{ fontSize: '22px' }}>KalpaGen</span>
-            </Typography>
+            <span className="hidden sm:hidden md:block font-bold text-[#F1F5F9] text-[22px] drop-shadow-[1px_1px_10px_rgba(0,0,0,0.2)]">
+                KalpaGen
+            </span>
         </div>
     );
 }

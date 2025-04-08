@@ -1,25 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
-
+@import "tailwindcss";
 html,
 body{
-  margin: 0;
-  padding: 0;
+  margin:0;
+  padding:0;
   background: radial-gradient(circle, #3b0086, #22004e, #110029); 
   color: white;
   font-family: 'Varela Round', sans-serif;
 
 }
 
-.nav-link{
+.nav-link {
   font-weight: 600;
   text-transform: uppercase;
-  margin-right: 10px;
-  margin-left: 10px;
-  border-radius: 10px;
+  margin: 0 10px;
   padding: 8px 20px;
+  border-radius: 9999px; /* capsule shape */
   text-decoration: none;
   letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+  color: white;
 }
+
+.nav-link:hover {
+  background-color: #4F46E5; /* Tailwind indigo-600 */
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.4); /* subtle glow */
+  color: white; /* maintain color on hover */
+}
+
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+
 
 .MuiOutlinedInput-input-root.Mui-focused, .MuiOutlinedInput-notchedOutline{
   border-color: white !important;
