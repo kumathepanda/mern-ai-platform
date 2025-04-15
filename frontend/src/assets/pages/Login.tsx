@@ -2,42 +2,59 @@ import { BiLogInCircle } from "react-icons/bi";
 import CustomizedInput from "../components/shared/CustomizedInput";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
     try {
-      toast.loading("Kindly wait , we are logging you in ...", { id: "login" });
+      toast.loading("Kindly wait, we are logging you in...", { id: "login" });
       await auth?.login(email, password);
       toast.success("Logged in successfully", { id: "login" });
     } catch (error) {
       console.log(error);
-      toast.error("Oops there was an error logging you in", { id: "login" });
+      toast.error("Oops, there was an error logging you in", { id: "login" });
     }
   };
 
+  useEffect(() => {
+    if (auth?.user) {
+      navigate('/');
+    }
+  }, [auth]);
+
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-[400px]  !bg-transparent !bg-opacity-2 backdrop-blur-md rounded-xl p-8 shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/10"
+    <div className="relative flex items-center justify-end min-h-screen">
+      {/* Left-side Text */}
+      <div className="max-w-md text-white text-lg leading-relaxed absolute left-10 top-1/2 transform -translate-y-1/2 z-10">
+        <h1 className="text-3xl font-bold mb-4">Welcome to Velura</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi eaque officia voluptas soluta ea praesentium, illum quis magni! Tenetur repellat qui error ipsa cum quae aut veniam provident omnis quo.
+        </p>
+      </div>
+
+      {/* Login Form */}
+      <form 
+        onSubmit={handleSubmit} 
+        className="relative z-20 w-full max-w-[420px] bg-indigo-950/70 backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg p-8"
       >
-        <div className="flex flex-col gap-5">
-          <h2 className="text-4xl font-semibold text-center !text-white tracking-wide">
+        <div className="flex flex-col gap-6">
+          <h2 className="text-4xl font-semibold text-center text-white tracking-wide">
             Login
           </h2>
-
           <CustomizedInput name="email" type="email" label="Email" />
           <CustomizedInput name="password" type="password" label="Password" />
-
           <button
             type="submit"
-            className="mt-2 w-full flex items-center justify-center gap-2 bg-gradient-to-tr from-purple-700 to-indigo-800 text-white font-semibold text-lg py-2 rounded-lg hover:from-indigo hover:to-white hover:text-purple-800 transition-all duration-300"
+            className="mt-4 w-full flex items-center justify-center gap-2 bg-gradient-to-tr from-indigo-600 to-indigo-500 text-white font-semibold text-lg py-2 rounded-xl hover:from-indigo-700 hover:to-indigo-400 hover:text-white transition-all duration-300"
           >
             Login <BiLogInCircle size={20} />
           </button>

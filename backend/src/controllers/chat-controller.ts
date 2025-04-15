@@ -76,3 +76,44 @@ export const generateChatCompletion = async (req: Request, res: Response, next: 
         });
     }
 };
+
+export const sendChatsToUser = async (req: Request, res: Response) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id); // 🔥 Fetch user by ID
+
+        if (!user) {
+            return res.status(401).json({ message: "User not found 😒 OR Token Malfunctioned" });
+        }
+
+        // Return user details in response
+        return res.status(200).json({
+            message: "OK",
+            chats: user.chats,
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "ERROR", cause: error.message });
+    }
+};
+
+export const deleteChats = async (req: Request, res: Response) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id); // 🔥 Fetch user by ID
+
+        if (!user) {
+            return res.status(401).json({ message: "User not found 😒 OR Token Malfunctioned" });
+        }
+        //@ts-ignore
+        user.chats = []; // Clear chat history
+        await user.save();
+        // Return user details in response
+        return res.status(200).json({
+            message: "OK",
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "ERROR", cause: error.message });
+    }
+}

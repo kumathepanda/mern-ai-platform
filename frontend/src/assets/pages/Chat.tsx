@@ -1,15 +1,18 @@
 import { useAuth } from "../../context/AuthContext";
 import ChatItem from "../components/Chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { useRef, useState, useEffect } from "react";
-import { sendChatRequest } from "../../helpers/api-communicator";
-
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
+import { getUserChats, sendChatRequest } from "../../helpers/api-communicator";
+import toast from "react-hot-toast";
+import {useNavigate} from 'react-router-dom'
+import { deleteUserChats } from "../../helpers/api-communicator";
 type ChatMessage = {
   role: "user" | "assistant";
   content: string;
 };
 
 const Chat = () => {
+  const navigate = useNavigate();
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
   const chatContainerRef = useRef<HTMLDivElement | null>(null);
@@ -38,6 +41,43 @@ const Chat = () => {
       console.error("Chat API error:", error);
     }
   };
+const handleDeleteChats = async () => {
+  try {
+    toast.loading("Deleting your chats...", {id:"deleting-chats"});
+    await deleteUserChats();
+    setChatMessages([]);
+    toast.success("Chats Deleted Successfully", {id:"deleting-chats"});
+  } catch (error) {
+    console.log(error);
+    toast.error("Unable to delete chats", {id:"deleting-chats"});
+    
+  }
+}
+
+  useLayoutEffect(() => {
+    if(auth?.isLoggedIn && auth?.user)
+    {
+      toast.loading("loading your chats...", {id:"loading-chats"});
+      getUserChats().then((data)=>{
+        setChatMessages([...data.chats]);
+        toast.success("Chats Loaded Successfully", {id:"loading-chats"});
+      }).catch(err=>{
+        console.log(err);
+        toast.error("Unable to load chats", {id:"loading-chats"});
+      })
+    }
+  },[auth])
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (!auth?.user) {
+        navigate('/login');
+      }
+    };
+  
+    checkAuth();
+  }, [auth]);
+  
 
   return (
     <div className="flex flex-col md:flex-row w-full h-full mt-4 gap-3 px-4">
@@ -54,7 +94,7 @@ const Chat = () => {
 
           <button
             className="w-full bg-purple-700 text-white font-bold py-2 rounded-xl hover:bg-red-600 transition-colors"
-            onClick={() => setChatMessages([])}
+            onClick={handleDeleteChats}
           >
             Clear Chats
           </button>

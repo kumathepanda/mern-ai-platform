@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto&family=Rubik:ital,wght@0,300..900;1,300..900&family=Varela+Round&display=swap');
 @import "tailwindcss";
 html,
-body{
-  margin:0;
-  padding:0;
-  background: radial-gradient(circle, #3b0086, #22004e, #110029); 
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at center, #5c6ac4, #3f51b5, #1a237e); 
   color: white;
   font-family: 'Varela Round', sans-serif;
-
+  min-height: 100vh;
+  overflow-x: hidden;
 }
+
+
 
 .nav-link {
   font-weight: 600;

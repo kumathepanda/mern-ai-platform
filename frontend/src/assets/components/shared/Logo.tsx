@@ -1,20 +1,18 @@
 import { Link } from 'react-router-dom';
+import LogoSvg from '../../../assets/logo-no-background.svg'; // adjust path if needed
 
 const Logo = () => {
-    return (
-        <div className="flex items-center gap-2 mr-auto">
-            <Link to="/">
-                <img 
-                    src="KalpaGen.png" 
-                    alt="KalpaGen" 
-                    className="w-[60px] h-[60px] object-cover rounded-full border-2 border-white"
-                />
-            </Link>
-            <span className="hidden sm:hidden md:block font-bold text-[#F1F5F9] text-[22px] drop-shadow-[1px_1px_10px_rgba(0,0,0,0.2)]">
-                KalpaGen
-            </span>
-        </div>
-    );
-}
+  return (
+    <div className="flex items-center gap-2 mr-auto pl-4">
+      <Link to="/" className="block">
+        <img
+          src={LogoSvg}
+          alt="Velura"
+          className="w-[300px] h-[100px] object-contain transition-transform duration-300 hover:scale-105 filter brightness-0 invert"
+        />
+      </Link>
+    </div>
+  );
+};
 
 export default Logo;

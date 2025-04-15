@@ -40,7 +40,7 @@ const ChatItem = ({ content, role }: ChatItemProps) => {
       {/* Bot Avatar */}
       {!isUser && (
         <Avatar sx={{ ml: "0" }}>
-          <img src="KalpaGen.png" alt="assistant" width={"30px"} />
+          <img src="Velura.png" alt="assistant" width={"30px"} />
         </Avatar>
       )}
 

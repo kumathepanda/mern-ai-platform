@@ -76,4 +76,25 @@ export const verifyUser = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "ERROR", cause: error.message });
     }
 };
+export const userLogout = async (req: Request, res: Response) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id); // 🔥 Fetch user by ID
+
+        if (!user) {
+            return res.status(401).json({ message: "User not found 😒 OR Token Malfunctioned" });
+        }
+
+        res.clearCookie(COOKIE_NAME,{path:"/",domain:"localhost",httpOnly:true,signed:true});
+        // Return user details in response
+        return res.status(200).json({
+            message: "OK",
+            name: user.name,  // Make sure 'name' exists in your User model
+            email: user.email
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "ERROR", cause: error.message });
+    }
+};
 
